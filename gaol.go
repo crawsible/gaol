@@ -6,7 +6,7 @@ import (
 
 	"github.com/jessevdk/go-flags"
 
-	"github.com/contraband/gaol/commands"
+	"github.com/stefanschneider/gaol/commands"
 )
 
 type command struct {
