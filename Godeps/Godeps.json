@@ -1,58 +1,111 @@
 {
-	"ImportPath": "github.com/contraband/gaol",
-	"GoVersion": "go1.6",
+	"ImportPath": "github.com/stefanschneider/gaol",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v74",
 	"Packages": [
 		"./..."
 	],
 	"Deps": [
 		{
 			"ImportPath": "code.cloudfoundry.org/garden",
-			"Comment": "go-wshd-839-gc7ed40f",
-			"Rev": "c7ed40f0b983c8d082dcdfc3dcd5adfa1020195f"
+			"Comment": "go-wshd-842-ga13ae02",
+			"Rev": "a13ae028cd3219c013713b9f3f85805ea9b85f60"
+		},
+		{
+			"ImportPath": "code.cloudfoundry.org/garden/client",
+			"Comment": "go-wshd-842-ga13ae02",
+			"Rev": "a13ae028cd3219c013713b9f3f85805ea9b85f60"
+		},
+		{
+			"ImportPath": "code.cloudfoundry.org/garden/client/connection",
+			"Comment": "go-wshd-842-ga13ae02",
+			"Rev": "a13ae028cd3219c013713b9f3f85805ea9b85f60"
+		},
+		{
+			"ImportPath": "code.cloudfoundry.org/garden/routes",
+			"Comment": "go-wshd-842-ga13ae02",
+			"Rev": "a13ae028cd3219c013713b9f3f85805ea9b85f60"
+		},
+		{
+			"ImportPath": "code.cloudfoundry.org/garden/transport",
+			"Comment": "go-wshd-842-ga13ae02",
+			"Rev": "a13ae028cd3219c013713b9f3f85805ea9b85f60"
 		},
 		{
 			"ImportPath": "code.cloudfoundry.org/lager",
 			"Rev": "62951a8009ab331bb21dc418074fa54e66eb9b6a"
 		},
 		{
+			"ImportPath": "github.com/Azure/go-ansiterm",
+			"Rev": "fa152c58bc15761d0200cb75fe958b89a9d4888e"
+		},
+		{
+			"ImportPath": "github.com/Azure/go-ansiterm/winterm",
+			"Rev": "fa152c58bc15761d0200cb75fe958b89a9d4888e"
+		},
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.10.0-38-g3ec0642",
+			"Rev": "3ec0642a7fb6488f65b06f9040adc67e3990296a"
+		},
+		{
 			"ImportPath": "github.com/bmizerany/pat",
-			"Rev": "b8a35001b773c267eb260a691f4e5499a3531600"
+			"Rev": "c068ca2f0aacee5ac3681d68e4d0a003b7d1fd2c"
+		},
+		{
+			"ImportPath": "github.com/docker/docker/pkg/term",
+			"Comment": "docs-v1.12.0-rc4-2016-07-15-1111-g92da332",
+			"Rev": "92da332638597cf424090b16a90435ea4601891a"
+		},
+		{
+			"ImportPath": "github.com/docker/docker/pkg/term/windows",
+			"Comment": "docs-v1.12.0-rc4-2016-07-15-1111-g92da332",
+			"Rev": "92da332638597cf424090b16a90435ea4601891a"
 		},
 		{
 			"ImportPath": "github.com/fatih/color",
-			"Comment": "v0.1-10-g8640971",
-			"Rev": "8640971291e54b520f781270275b7ed8762ac909"
+			"Comment": "v0.2.0",
+			"Rev": "87d4004f2ab62d0d255e0a38f1680aa534549fe3"
 		},
 		{
 			"ImportPath": "github.com/jessevdk/go-flags",
-			"Comment": "v1-322-gfc93116",
-			"Rev": "fc93116606d0a71d7e9de0ad5734fdb4b8eae834"
+			"Comment": "v1-369-ga8cab01",
+			"Rev": "a8cab0163d48558ffd77076c9c99388529766f63"
 		},
 		{
 			"ImportPath": "github.com/kr/pty",
-			"Comment": "release.r56-29-gf7ee69f",
-			"Rev": "f7ee69f31298ecbe5d2b349c711e2547a617d398"
+			"Comment": "release.r56-35-gce7fa45",
+			"Rev": "ce7fa45920dc37a92de8377972e52bc55ffa8d57"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Comment": "v0.0.6",
+			"Rev": "ed8eb9e318d7a84ce5915b495b7d35e0cfe7b5a8"
 		},
 		{
 			"ImportPath": "github.com/mattn/go-isatty",
-			"Rev": "d6aaa2f596ae91a0a58d8e7f2c79670991468e4f"
+			"Rev": "66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8"
 		},
 		{
 			"ImportPath": "github.com/mattn/go-shellwords",
-			"Comment": "v1.0.0",
-			"Rev": "f4e566c536cf69158e808ec28ef4182a37fdc981"
+			"Comment": "v1.0.0-1-g525bede",
+			"Rev": "525bedee691b5a8df547cb5cf9f86b7fb1883e24"
 		},
 		{
 			"ImportPath": "github.com/pkg/term",
-			"Rev": "d7ef5fb23c9838dfaf4731b1dd94aacaedd89181"
+			"Rev": "b1f72af2d63057363398bec5873d16a98b453312"
 		},
 		{
-			"ImportPath": "github.com/shiena/ansicolor",
-			"Rev": "d445752f6f66f9cd987722f109149f6799cdf1de"
+			"ImportPath": "github.com/pkg/term/termios",
+			"Rev": "b1f72af2d63057363398bec5873d16a98b453312"
 		},
 		{
 			"ImportPath": "github.com/tedsuo/rata",
 			"Rev": "b15ebd8bd97ae9202eb00c076d59b2f2824bce37"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "a646d33e2ee3172a661fc09bca23bb4889a41bc8"
 		}
 	]
 }
