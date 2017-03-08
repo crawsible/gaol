@@ -143,6 +143,25 @@ type ContainerSpec struct {
 
 	// Limits to be applied to the newly created container.
 	Limits Limits `json:"limits,omitempty"`
+
+	// Whitelist outbound network traffic.
+	//
+	// If the configuration directive deny_networks is not used,
+	// all networks are already whitelisted and passing any rules is effectively a no-op.
+	//
+	// Later programmatic NetOut calls take precedence over these rules, which is
+	// significant only in relation to logging.
+	NetOut []NetOutRule `json:"netout_rules,omitempty"`
+
+	// Map a port on the host to a port in the container so that traffic to the
+	// host port is forwarded to the container port.
+	//
+	// If a host port is not given, a port will be acquired from the server's port
+	// pool.
+	//
+	// If a container port is not given, the port will be the same as the
+	// host port.
+	NetIn []NetIn `json:"netin,omitempty"`
 }
 
 type Limits struct {
