@@ -2,6 +2,8 @@ package commands
 
 import (
 	"fmt"
+	"net"
+	"strconv"
 	"strings"
 	"time"
 
@@ -16,6 +18,8 @@ type Create struct {
 	Privileged bool          `short:"p" long:"privileged" description:"privileged user in the container is privileged in the host"`
 	Network    string        `long:"network" description:"the subnet of the container"`
 	BindMounts []string      `short:"m" long:"bind-mount" description:"bind mount host-path:container-path"`
+	NetIn      []string      `short:"i" long:"net-in" description:"map a host port to a container port"`
+	NetOut     []string      `short:"o" long:"net-out" description:"whitelist outbound network traffic"`
 }
 
 func (command *Create) Execute(args []string) error {
@@ -35,6 +39,38 @@ func (command *Create) Execute(args []string) error {
 		})
 	}
 
+	var netIns []garden.NetIn
+
+	for _, pair := range command.NetIn {
+		segs := strings.SplitN(pair, ":", 2)
+		if len(segs) != 2 {
+			fail(fmt.Errorf("invalid net-in segment (must be host-path:container-path): %s", pair))
+		}
+
+		var ports []uint32
+		for _, seg := range segs {
+			port, _ := strconv.Atoi(seg)
+			ports = append(ports, uint32(port))
+		}
+
+		netIns = append(netIns, garden.NetIn{
+			HostPort:      ports[0],
+			ContainerPort: ports[1],
+		})
+	}
+
+	var ips []garden.IPRange
+
+	for _, network := range command.NetOut {
+		ip := net.ParseIP(network)
+		ips = append(ips, garden.IPRangeFromIP(ip))
+	}
+
+	netOutRule := garden.NetOutRule{
+		Protocol: garden.ProtocolTCP,
+		Networks: ips,
+	}
+
 	container, err := globalClient().Create(garden.ContainerSpec{
 		Handle:     command.Handle,
 		GraceTime:  command.Grace,
@@ -43,6 +79,8 @@ func (command *Create) Execute(args []string) error {
 		Env:        command.Env,
 		Network:    command.Network,
 		BindMounts: bindMounts,
+		NetIn:      netIns,
+		NetOut:     []garden.NetOutRule{netOutRule},
 	})
 
 	failIf(err)
