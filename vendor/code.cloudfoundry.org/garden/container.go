@@ -54,7 +54,9 @@ type Container interface {
 	CurrentMemoryLimits() (MemoryLimits, error)
 
 	// Map a port on the host to a port in the container so that traffic to the
-	// host port is forwarded to the container port.
+	// host port is forwarded to the container port. This is deprecated in
+	// favour of passing NetIn configuration in the ContainerSpec at creation
+	// time.
 	//
 	// If a host port is not given, a port will be acquired from the server's port
 	// pool.
@@ -68,7 +70,8 @@ type Container interface {
 	// * When no port can be acquired from the server's port pool.
 	NetIn(hostPort, containerPort uint32) (uint32, uint32, error)
 
-	// Whitelist outbound network traffic.
+	// Whitelist outbound network traffic. This is deprecated in favour of passing
+	// NetOut configuration in the ContainerSpec at creation time.
 	//
 	// If the configuration directive deny_networks is not used,
 	// all networks are already whitelisted and this command is effectively a no-op.
@@ -79,6 +82,13 @@ type Container interface {
 	// Errors:
 	// * An error is returned if the NetOut call fails.
 	NetOut(netOutRule NetOutRule) error
+
+	// A Bulk call for NetOut. This is deprecated in favour of passing
+	// NetOut configuration in the ContainerSpec at creation time.
+	//
+	// Errors:
+	// * An error is returned if any of the NetOut calls fail.
+	BulkNetOut(netOutRules []NetOutRule) error
 
 	// Run a script inside a container.
 	//
@@ -124,6 +134,9 @@ type Container interface {
 
 // ProcessSpec contains parameters for running a script inside a container.
 type ProcessSpec struct {
+	// ID for the process. If empty, an ID will be generated.
+	ID string `json:"id,omitempty"`
+
 	// Path to command to execute.
 	Path string `json:"path,omitempty"`
 
@@ -304,6 +317,13 @@ type MemoryLimits struct {
 
 type CPULimits struct {
 	LimitInShares uint64 `json:"limit_in_shares,omitempty"`
+}
+
+type PidLimits struct {
+	// Limits the number of pids a container may create before new forks or clones are disallowed to processes in the container.
+	// Note: this may only be enforced when a process attempts to fork, so it does not guarantee that a new container.Run(ProcessSpec)
+	// will not succeed even if the limit has been exceeded, but the process will not be able to spawn further processes or threads.
+	Max uint64 `json:"max,omitempty"`
 }
 
 // Resource limits.

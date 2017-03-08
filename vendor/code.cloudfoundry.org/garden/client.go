@@ -72,7 +72,10 @@ type ContainerSpec struct {
 	// subject to the globally configured grace time.
 	GraceTime time.Duration `json:"grace_time,omitempty"`
 
-	// RootFSPath is a URI referring to the root file system for the container.
+	// Deprecated in favour of Image property
+	RootFSPath string `json:"rootfs,omitempty"`
+
+	// Image contains a URI referring to the root file system for the container.
 	// The URI scheme must either be the empty string or "docker".
 	//
 	// A URI with an empty scheme determines the path of a root file system.
@@ -91,7 +94,7 @@ type ContainerSpec struct {
 	// * "/some/path"
 	// * "docker:///onsi/grace-busybox"
 	// * "docker://index.docker.io/busybox"
-	RootFSPath string `json:"rootfs,omitempty"`
+	Image ImageRef `json:"image,omitempty"`
 
 	// * bind_mounts: a list of mount point descriptions which will result in corresponding mount
 	// points being created in the container's file system.
@@ -164,11 +167,18 @@ type ContainerSpec struct {
 	NetIn []NetIn `json:"netin,omitempty"`
 }
 
+type ImageRef struct {
+	URI      string `json:"uri,omitempty"`
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+}
+
 type Limits struct {
 	Bandwidth BandwidthLimits `json:"bandwidth_limits,omitempty"`
 	CPU       CPULimits       `json:"cpu_limits,omitempty"`
 	Disk      DiskLimits      `json:"disk_limits,omitempty"`
 	Memory    MemoryLimits    `json:"memory_limits,omitempty"`
+	Pid       PidLimits       `json:"pid_limits,omitempty"`
 }
 
 // BindMount specifies parameters for a single mount point.
